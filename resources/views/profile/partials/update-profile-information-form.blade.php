@@ -18,6 +18,12 @@
         @method('patch')
 
         <div>
+            <label for="profile_image">Profile Image</label>
+            <input type="file" name="profile_image" id="profile_image" class="form-control">
+
+        </div>
+
+        <div>
             <x-input-label for="name" :value="__('Name')" />
             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />

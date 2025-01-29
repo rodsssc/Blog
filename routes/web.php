@@ -1,11 +1,20 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+use Faker\Factory as Faker;
+
+// Route::get('/', function () {
+//     $faker = Faker::create();
+//     // User::factory()->count(3)->create();
+
+    
+//     return view('index');
+// });
+
+Route::resource('index',PostController::class)->middleware('auth');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

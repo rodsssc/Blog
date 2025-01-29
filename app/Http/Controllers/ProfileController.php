@@ -6,8 +6,12 @@ use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+
+
 
 class ProfileController extends Controller
 {
@@ -57,4 +61,32 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    public function updateProfile(Request $request)
+{
+    $request->validate([
+        'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ]);
+
+    dd($request->all()); // This will dump all request data and stop execution
+
+    $user = Auth::user();
+
+    if ($request->hasFile('profile_image')) {
+        $image = $request->file('profile_image');
+        $name = time() . '.' . $image->getClientOriginalExtension();
+        $destinationPath = public_path('/profile_images');
+        $image->move($destinationPath, $name);
+
+        $user->profile_image = '/profile_images/' . $name;
+    }
+
+    $user->save();
+
+    return redirect()->back()->with('success', 'Profile updated successfully!');
+}
+
+    
+
+
 }
