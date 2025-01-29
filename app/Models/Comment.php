@@ -14,7 +14,7 @@ class Comment extends Model
 
     public function post()
 {
-    return $this->belongsTo(Post::class, 'post_id'); // Ensure the second parameter is 'post_id'
+    return $this->belongsTo(Post::class); // Ensure the second parameter is 'post_id'
 }
 
 

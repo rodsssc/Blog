@@ -15,8 +15,8 @@ class CommentController extends Controller
     public function index()
     {   
 
-        // $comments = Comment::all();
-        // return view('comment',compact('comments'));
+        $comments = Comment::all();
+        return view('comment',compact('comments'));
     }
 
     /**
@@ -38,12 +38,13 @@ class CommentController extends Controller
         ]);
     
         Comment::create([
-            'user_id' => auth()->id(), // Ensure user is authenticated
+            'user_id' => Auth::id(), // Ensure user is authenticated
             'post_id' => $request->post_id,
             'content' => $request->content,
         ]);
+        echo"Successfully";
         
-        return view('comment');
+        return redirect()->route('comment.index')->with('success', 'Comment added successfully');
     }
     
 

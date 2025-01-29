@@ -27,8 +27,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
 require __DIR__.'/auth.php';
 
-Route::resource('/comment',CommentController::class);
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::resource('comment', CommentController::class);
+    Route::post('comment', [CommentController::class, 'store'])->name('comment.store');
+    Route::get('comment', [CommentController::class, 'index'])->name('comment.index');
+});
 
 

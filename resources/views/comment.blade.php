@@ -23,7 +23,7 @@
                     <h2>{{ $comment->content }}</h2>
                     <p><strong>{{ $comment->user->name }}</strong></p>
                     <span class="comment-time">
-                        {{ $comment->created_at->format('F j, Y g:i A') }}
+                        {{-- {{ $comment->created_at->format('F j, Y g:i A') }} --}}
                     </span>
                 </div>
             @endforeach
@@ -31,10 +31,9 @@
     </div>
     
     <div class="add-comment">
-        <form method="POST" action="/comments">
+        <form method="POST" action="{{ route('comment.store') }}">
             @csrf
             <textarea name="content" placeholder="Write a comment..." required></textarea>
-            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
             <input type="hidden" name="post_id" value="{{ $post->id }}">
             <button type="submit">Add Comment</button>
         </form>
