@@ -11,10 +11,15 @@ class PostController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $posts = Post::with('user')->get();
-        return view('index',compact('posts'));
-    }
+{
+    $posts = Post::with(['user', 'comments.user'])->get();
+
+    
+    return view('index', compact('posts'));
+}
+
+    
+
 
     /**
      * Show the form for creating a new resource.

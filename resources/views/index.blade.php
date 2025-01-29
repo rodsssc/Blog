@@ -19,47 +19,32 @@
         </div>
 
         @foreach ($posts as $post)
-            <div class="post">
-                <div class="post-header">
-                    <div class="profile-image">
-                        <img src="{{ $post->user->profile_image}}" alt="Profile Image" width="150px">
-                        <p class="username"><small>@</small><small>{{ $post->user->name}}</small></p>
-                    </div>
-                    <div class="user-info">
-                        <span class="post-time">{{ $post->created_at->format('F j, Y g:i A') }}</span>
-                    </div>
+        <div class="post">
+            <div class="post-header">
+                <div class="profile-image">
+                    <img src="{{ $post->user->profile_image }}" alt="Profile Image" width="150px">
+                    <p class="username"><small>@</small><small>{{ $post->user->name }}</small></p>
                 </div>
-
-                <div class="post-content">
-                    <p>{{ $post->content }}</p>
-                </div>
-
-                @if($post->image)
-                    <img src="{{ asset('storage/' . $post->image) }}" alt="Post Image">
-                @endif
-
-                <!-- Comments Section -->
-                <div class="comments-section">
-                    @foreach ($post->comments as $comment)
-                        <div class="comment">
-                            <p><strong>{{ $comment->user->name }}</strong>: {{ $comment->content }}</p>
-                            <span class="comment-time">{{ $comment->created_at->format('F j, Y g:i A') }}</span>
-                        </div>
-                    @endforeach
-
-                    <!-- Add a new comment -->
-                    <div class="add-comment">
-                        <form  method="POST" >
-                            @csrf
-                            <textarea name="content" placeholder="Write a comment..." required></textarea>
-                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                            <input type="hidden" name="post_id" value="{{ $post->id }}">
-                            <button type="submit">Add Comment</button>
-                        </form>
-                    </div>
+                <div class="user-info">
+                    <span class="post-time">{{ $post->created_at->format('F j, Y g:i A') }}</span>
                 </div>
             </div>
-        @endforeach
+    
+            <div class="post-content">
+                <p>{{ $post->content }}</p>
+            </div>
+    
+            @if($post->image)
+                <img src="{{ asset('storage/' . $post->image) }}" alt="Post Image">
+            @endif
+            <div class="comment-link">
+                <a href="/comment/{{$post->id}}">Comment</a>
+            </div>
+        </div>
+        
+    @endforeach
+    
+    
     </div>
 </body>
 </html>

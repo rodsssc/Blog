@@ -14,8 +14,8 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->Increments('id'); // primary key, auto incrementing
-            $table->bigInteger('user_id');
-            $table->bigInteger('post_id'); // foreign key to posts table
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('post_id')->constrained()->onDelete('cascade');// foreign key to posts table
             $table->text('content');
             $table->timestamps();
             

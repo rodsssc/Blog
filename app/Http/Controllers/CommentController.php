@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Comment;
 use App\Models\Post;
+use Illuminate\Support\Facades\Auth; // Required for auth()->id()
 
 class CommentController extends Controller
 {
@@ -14,8 +15,8 @@ class CommentController extends Controller
     public function index()
     {   
 
-        $comments = Comment::with('post.user')->get();
-        return view('sample',compact('comments'));
+        // $comments = Comment::all();
+        // return view('comment',compact('comments'));
     }
 
     /**
@@ -23,7 +24,7 @@ class CommentController extends Controller
      */
     public function create()
     {
-        return view('index');
+        return view('comment');
     }
 
     /**
@@ -31,22 +32,32 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        $comment = new Comment();
-        $comment->user_id = $request->user_id;
-        $comment->post_id = $request->post_id;
-        $comment->content = $request->content;
-        $comment->save();
-        return redirect('/index');
+        $request->validate([
+            'content' => 'required|string|max:255',
+            'post_id' => 'required|exists:posts,id',
+        ]);
+    
+        Comment::create([
+            'user_id' => auth()->id(), // Ensure user is authenticated
+            'post_id' => $request->post_id,
+            'content' => $request->content,
+        ]);
+        
+        return view('comment');
     }
+    
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        // Fetch the post with its comments and user data
+        $post = Post::with('comments.user')->findOrFail($id);
+    
+        return view('comment', compact('post'));
     }
-
+    
     /**
      * Show the form for editing the specified resource.
      */
