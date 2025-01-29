@@ -13,12 +13,12 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
         @csrf
         @method('patch')
 
         <div>
-            <label for="profile_image">Profile Image</label>
+            <label for="profile_image">Profile Image</label><br>
             <input type="file" name="profile_image" id="profile_image" class="form-control">
 
         </div>

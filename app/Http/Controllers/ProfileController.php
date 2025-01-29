@@ -63,29 +63,28 @@ class ProfileController extends Controller
     }
 
     public function updateProfile(Request $request)
-{
-    $request->validate([
-        'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-    ]);
-
-    dd($request->all()); // This will dump all request data and stop execution
-
-    $user = Auth::user();
-
-    if ($request->hasFile('profile_image')) {
-        $image = $request->file('profile_image');
-        $name = time() . '.' . $image->getClientOriginalExtension();
-        $destinationPath = public_path('/profile_images');
-        $image->move($destinationPath, $name);
-
-        $user->profile_image = '/profile_images/' . $name;
+    {
+        $request->validate([
+            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+    
+        $user = Auth::user(); // Ensure you're retrieving the authenticated user
+    
+        if ($request->hasFile('profile_image')) {
+            $image = $request->file('profile_image');
+            $name = time() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('/profile_images');
+            $image->move($destinationPath, $name);
+    
+            $user->profile_image = '/profile_images/' . $name;
+        }
+    
+        $user->save();
+    
+        return redirect()->back()->with('success', 'Profile updated successfully!');
     }
-
-    $user->save();
-
-    return redirect()->back()->with('success', 'Profile updated successfully!');
-}
-
+    
+    
     
 
 
