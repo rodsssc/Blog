@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\NavigationController;
 use Illuminate\Support\Facades\Route;
 
 use Faker\Factory as Faker;
@@ -35,6 +36,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('comment', [CommentController::class, 'store'])->name('comment.store');
     Route::get('comment', [CommentController::class, 'index'])->name('comment.index');
 });
+
+
+
+Route::get('/index', [NavigationController::class, 'index']);
+Route::get('/navigation', [NavigationController::class, 'navigation']);
+
 
 
 

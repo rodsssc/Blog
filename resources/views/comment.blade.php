@@ -12,9 +12,17 @@
         <h1>Comments</h1>
         <div class="post">
             <h2>{{ $post->content }}</h2>
+            @if($post->image)
+                        <div class="post-content">
+                            <img src="{{ asset('storage/' . $post->image) }}" 
+                                 alt="Post Image" 
+                                 class="post-image">
+                        </div>
+            @endif
             <p><strong>{{ $post->user->name }}</strong></p>
+            
             <span class="post-time">
-                {{ $post->created_at->format('F j, Y g:i A') }}
+                {{ $post->created_at->diffForHumans() }}
             </span>
         </div>
         <div class="comments-section">

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,10 +9,11 @@
 </head>
 <body>
     <nav>
-        @include('layouts.navigation')s
+        @include('layouts.navigation', ['user' => $user])
     </nav>
     <div class="container">
         <div class="post-form">
+            <h1>New Post</h1>
             <form action="index" method="POST" enctype="multipart/form-data">
                 @csrf
                 <textarea name="content" placeholder="What's on your mind?" required></textarea>
@@ -26,31 +26,28 @@
         <div class="post">
             <div class="post-header">
                 <div class="profile-image">
-                   <a href="/user-profile/{{$post->user->id}}"><img src="{{ $post->user->profile_image }}" alt="Profile Image" width="150px"></a>
-                    <p class="username"><small>@</small><small>{{ $post->user->name }}</small></p>
-
+                   <a href="/user-profile/{{$post->user->id}}"><img src="{{ $post->user->profile_image }}" alt="Profile Image"></a>
                 </div>
                 <div class="user-info">
-                    <span class="post-time">{{ $post->created_at->format('F j, Y g:i A') }}</span>
+                    <h4 class="username">{{ $post->user->name}}</h4>
+                    <span class="post-time">{{ $post->created_at->diffForHumans()}}</span>
                 </div>
             </div>
     
             <div class="post-content">
                 <p>{{ $post->content }}</p>
             </div>
-    
-            @if($post->image)
-                <img src="{{ asset('storage/' . $post->image) }}" alt="Post Image">
-            @endif
+            <div class="photo">
+                @if($post->image)
+                    <img src="{{ asset('storage/' . $post->image) }}" alt="Post Image">
+                @endif
+          </div>
             <div class="comment-link">
                 <a href="/comment/{{$post->id}}" class="comment-btn">Comment</a>
                 <a href="/comment/{{$post->id}}" class="comment-count">({{ $post->comments->count() }})</a>
             </div>
-            
         </div>
-        
     @endforeach
-    
     
     </div>
 </body>

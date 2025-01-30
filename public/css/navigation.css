@@ -1,0 +1,82 @@
+/* navbar.css */
+
+/* Navbar Styling */
+.navbar {
+    background-color: #4267B2; /* Facebook's blue color */
+    padding: 25px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Navbar items */
+.navbar-ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-left: 1200px;
+}
+
+li img{
+    height: 50px;
+    width: 60px;
+    border-radius: 100%;
+}
+
+/* Flex-grow class to push elements to the right */
+.flex-grow {
+    flex-grow: 1;
+}
+
+/* Navbar links */
+.navbar-ul li {
+    margin: 0 15px;
+}
+
+.navbar-ul li a,
+.logout-btn {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* Add hover effect */
+.navbar-ul li a:hover,
+.logout-btn:hover {
+    text-decoration: underline;
+}
+
+/* Style profile image */
+.profile-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px; /* Add distance between image and name */
+}
+
+/* Style logout button */
+.logout-form {
+    display: inline;
+}
+
+.logout-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.logout-btn:hover {
+    text-decoration: underline;
+}
