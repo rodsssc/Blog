@@ -24,6 +24,7 @@
                         <h1 class="profile-name">{{ $user_profile->first()->user->name }}</h1>
                         <div class="profile-email">{{ $user_profile->first()->user->email }}</div>
                     </div>
+                    <p>{{$user_profile->first()->user->bio}}</p>
                 </div>
             </div>
         </div>
