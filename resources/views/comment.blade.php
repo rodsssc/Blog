@@ -21,9 +21,9 @@
             @foreach ($post->comments as $comment)
                 <div class="comment">
                     <h2>{{ $comment->content }}</h2>
-                    <p><strong>{{ $comment->user->name }}</strong></p>
+                    <p>@<strong>{{ $comment->user->name }}</strong></p>
                     <span class="comment-time">
-                        {{-- {{ $comment->created_at->format('F j, Y g:i A') }} --}}
+                        {{ $comment->created_at }}
                     </span>
                 </div>
             @endforeach

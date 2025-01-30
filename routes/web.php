@@ -2,18 +2,16 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 
 use Faker\Factory as Faker;
 
-// Route::get('/', function () {
-//     $faker = Faker::create();
-//     // User::factory()->count(3)->create();
+Route::get('/', function () {
+    return view('index');
+});
 
-    
-//     return view('index');
-// });
 
 Route::resource('index',PostController::class)->middleware('auth');
 
@@ -39,3 +37,5 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
+
+Route::resource('user-profile', UserProfileController::class)->middleware('auth');

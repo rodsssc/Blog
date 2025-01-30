@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +9,9 @@
     <title>Blog Posts</title>
 </head>
 <body>
+    <nav>
+        @include('layouts.navigation')s
+    </nav>
     <div class="container">
         <div class="post-form">
             <form action="index" method="POST" enctype="multipart/form-data">
@@ -22,8 +26,9 @@
         <div class="post">
             <div class="post-header">
                 <div class="profile-image">
-                    <img src="{{ $post->user->profile_image }}" alt="Profile Image" width="150px">
+                   <a href="/user-profile/{{$post->user->id}}"><img src="{{ $post->user->profile_image }}" alt="Profile Image" width="150px"></a>
                     <p class="username"><small>@</small><small>{{ $post->user->name }}</small></p>
+
                 </div>
                 <div class="user-info">
                     <span class="post-time">{{ $post->created_at->format('F j, Y g:i A') }}</span>
@@ -38,8 +43,10 @@
                 <img src="{{ asset('storage/' . $post->image) }}" alt="Post Image">
             @endif
             <div class="comment-link">
-                <a href="/comment/{{$post->id}}">Comment</a>
+                <a href="/comment/{{$post->id}}" class="comment-btn">Comment</a>
+                <a href="/comment/{{$post->id}}" class="comment-count">({{ $post->comments->count() }})</a>
             </div>
+            
         </div>
         
     @endforeach
